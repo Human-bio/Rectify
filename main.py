@@ -1,2 +1,3 @@
 import request_mod as reqmod
-import pyqt as GUI
+import os.path
+from os import path
