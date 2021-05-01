@@ -1,6 +1,7 @@
+import csv
 import json
 import requests
-from time import perf_counter 
+import os.path 
 online = True
 
 
@@ -33,11 +34,14 @@ def requestandsave():
     
     b=askinput()
     if b=="1":
-        with open('alphavantageapi/request.txt','a') as requestssave:
+        csv_columns = ["name","Method", "url", "data", "headers", "params","response"]
 
-            json.dump(name.__dict__, requestssave,ensure_ascii=False, indent=4)
-            
-
+        with open("requests.csv", 'a') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+            if not os.path.isfile("requests.csv"):
+                writer.writeheader()
+            writer.writerow(name.__dict__)
+        
 
     elif b=="2":
         print(name.response)
@@ -47,6 +51,7 @@ def requestandsave():
 i = 1
 
 while online:
+
     input("welcome to rectify design api tool")
     a = input("a. send requests -- not yet available b. get prevuise requests")
     name,Method, url,function, data, headers, params = input(""),input(""),input(""),input(""),input(""),input(""),input("")
