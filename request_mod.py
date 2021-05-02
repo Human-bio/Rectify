@@ -1,4 +1,3 @@
-import pandas as pd
 import csv
 import json
 import requests
@@ -22,9 +21,12 @@ class request:
         
   
 def getprevuisrequest():
-
-        df = pd.read_csv('requests.csv')
-        print(df.head(df.count()))
+        
+        with open('requests.csv') as data:
+            reader = csv.reader(data)
+            for row in reader:
+                print(row)
+        print
 
 def filter(jsondata,*braces):
     filterout = jsondata
@@ -34,9 +36,9 @@ def filter(jsondata,*braces):
 
     return filterout
 def showoptions():
-    return input("your options \n 1. save request \n2. show output \n [1,2]")
+    return input("your options \n 1. save request \n2. show output \n [1,2] ")
 def requestandsave():
-    name,Method, url,function, data, headers, params = input("name of the request"),input("request method"),input("request url"),input("request function or query"),input("request data"),input("request headers"),input("request parameters")
+    name,Method, url,function, data, headers, params = input("name of the request "),input("request method "),input("request url "),input("request function or query "),input("request data "),input("request headers "),input("request parameters ")
     name = request(name=name,Method=Method, url=url+function, data=data, headers=headers, params=params)
     b=showoptions()
     if b=="1":
@@ -55,16 +57,14 @@ def requestandsave():
         print("Choose one of the option's please")
         requestandsave()
 i = 1
-
+input("welcome to rectify design api tool \n")
 while online:
 
-    input("welcome to rectify design api tool")
-    a = input("a. send requests -- not yet available b. get prevuise requests")
+    a = input("a. send requests  b. get prevuise requests c.leave network")
     
     if a.upper() in ['A']:
         requestandsave()
     if a.upper() in ['B']:
         getprevuisrequest()
-        #ss
-
-
+    if a.upper() in ['C']:
+        online = False
